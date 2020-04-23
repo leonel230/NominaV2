@@ -29,8 +29,8 @@ public class Contenedor extends javax.swing.JFrame {
         jDesktopPane1 = new javax.swing.JDesktopPane();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuItem1 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenu3 = new javax.swing.JMenu();
         jMenuItem3 = new javax.swing.JMenuItem();
@@ -52,11 +52,11 @@ public class Contenedor extends javax.swing.JFrame {
 
         jMenu1.setText("Nomina");
 
-        jMenuItem1.setText("Nomina");
-        jMenu1.add(jMenuItem1);
-
         jMenuItem2.setText("Empleados");
         jMenu1.add(jMenuItem2);
+
+        jMenuItem1.setText("Nomina");
+        jMenu1.add(jMenuItem1);
 
         jMenuBar1.add(jMenu1);
 
