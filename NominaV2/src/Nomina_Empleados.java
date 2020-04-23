@@ -1,3 +1,8 @@
+
+import java.text.DecimalFormat;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -211,6 +216,11 @@ public class Nomina_Empleados extends javax.swing.JInternalFrame {
         Registro.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         Registro.setForeground(new java.awt.Color(0, 0, 255));
         Registro.setText("REGISTRO");
+        Registro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RegistroActionPerformed(evt);
+            }
+        });
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Nomina de Sueldos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Times New Roman", 1, 18), new java.awt.Color(0, 0, 153))); // NOI18N
 
@@ -265,13 +275,13 @@ public class Nomina_Empleados extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(11, 11, 11)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                        .addGap(66, 66, 66)
+                        .addComponent(Registro)
+                        .addGap(28, 28, 28))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(Registro)
-                        .addGap(28, 28, 28)))
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -280,6 +290,76 @@ public class Nomina_Empleados extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+int ICod=0;
+    private void RegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RegistroActionPerformed
+ /////////// SE AGREGA EL DECIMAL FORMAT PARA DECIMALES 
+ DecimalFormat SueldoLiquid = new DecimalFormat("0.0");
+ /////////// DECLARACION DE VARIABLES STRING FLOAT INT 
+ float Sueldos;
+ int HoraEx,OtrosIng,OtrosGastos,SuelExtra; /// se Agrego nuevos int
+ float HEx;
+ float BonifLeg = 250;
+ String NombreEmp;
+ String PuestoE;
+ NombreEmp=txt_nombreE.getText();
+ PuestoE=txt_Puesto.getText();
+ Sueldos=Integer.parseInt(txt_Sueldo.getText());
+ SuelExtra=Integer.parseInt(txt_sExtra.getText());
+ HoraEx=Integer.parseInt(txt_Hextra.getText());
+ OtrosIng=Integer.parseInt(txt_oIngre.getText());
+ OtrosGastos=Integer.parseInt(txt_oDesc.getText());
+            
+ //// HEx VARIABLE QUE SE UTILIZA POR LA HORAS TRABAJADAS EXTRAS DEL EMPLEADO
+ HEx=(float) (1.5*HoraEx+SuelExtra); ///se le agrega como suma a la hora estra el sueldo extra
+ ////////////**** AQUI EMPIEZA LOS CICLOS DE IF Y ELSE IF PARA EL SALARIO BRUTO PARA NOMINA EMPLEADO
+ float SalarioBruto;
+ SalarioBruto = (float) (Sueldos+HEx+BonifLeg+OtrosIng);
+            
+ //////***** Se declara lo siguiente para descuentos de sueldo bruto al empleado ISR IGSS 
+ /////***** ISR TIENE DIFERENTES DESCUENTOS SEGUN EL SUELDO BRUTO DE CADA EMPLEADO
+ float IsrE=0;
+ if(SalarioBruto>6000&&SalarioBruto<8000){
+ IsrE=(float) (SalarioBruto*0.05);
+ }
+ else if(SalarioBruto>8000&&SalarioBruto<9500){
+ IsrE=(float) (SalarioBruto*0.06);
+ }
+ else if(SalarioBruto>9500){
+ IsrE=(float) (SalarioBruto*0.08);
+ }
+ ///**** IGSS SE LE DESCUENTA A TODOS LOS EMPLEADOS SU CUOTA 
+ float IgssE;
+ IgssE=(float) (SalarioBruto*0.0483);
+ /////***** TOTAL QUE RECIBE EL EMPLEADO AL FINAL DE DEBITARLE LOS DESCUENTOS DE LEY
+ float TotDesc;
+ TotDesc = IsrE+IgssE+OtrosGastos;
+            
+ float TSuelLiquido=0;
+ TSuelLiquido=SalarioBruto-TotDesc;
+ ///////***** DECLARACION DE LA TABLA DE EMPLEADO EN LA PLANILLA 
+ Object[] fila = new Object[13];
+ DefaultTableModel modelo = (DefaultTableModel) tblDatos.getModel();
+ ICod++;
+            fila [0]=String.valueOf(ICod);
+            fila [1]=NombreEmp;
+            fila [2]=PuestoE;
+            fila [3]=String.valueOf(Sueldos);
+            fila [4]=String.valueOf(SueldoLiquid.format(HEx));
+            fila [5]=String.valueOf(SueldoLiquid.format(BonifLeg));
+            fila [6]=String.valueOf(SueldoLiquid.format(OtrosIng));
+            fila [7]=String.valueOf(SueldoLiquid.format(SalarioBruto));
+            fila [8]=String.valueOf(SueldoLiquid.format(IgssE));
+            fila [9]=String.valueOf(SueldoLiquid.format(IsrE));
+            fila [10]=String.valueOf(SueldoLiquid.format(OtrosGastos));
+            fila [11]=String.valueOf(SueldoLiquid.format(TotDesc));
+            fila [12]=String.valueOf(SueldoLiquid.format(TSuelLiquido));
+            modelo.addRow(fila);
+            tblDatos.setModel(modelo);
+        {
+            JOptionPane.showMessageDialog(null, "VERIFIQUE LA INFORMACIÓN DEL EMPLEADO SEA CORRECTA ");
+        }
+                                  
+    }//GEN-LAST:event_RegistroActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
