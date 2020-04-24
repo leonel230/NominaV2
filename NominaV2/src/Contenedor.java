@@ -10,6 +10,7 @@
  */
 public class Contenedor extends javax.swing.JFrame {
 private Nomina_Empleados nuevaVentana2;
+private MantenimientoEmpleados nuevaVentana3;
     /**
      * Creates new form Contenedor
      */
@@ -31,6 +32,7 @@ private Nomina_Empleados nuevaVentana2;
         jMenu1 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem4 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenu3 = new javax.swing.JMenu();
         jMenuItem3 = new javax.swing.JMenuItem();
@@ -51,6 +53,11 @@ private Nomina_Empleados nuevaVentana2;
         );
 
         jMenu1.setText("Nomina");
+        jMenu1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenu1ActionPerformed(evt);
+            }
+        });
 
         jMenuItem2.setText("Empleados");
         jMenu1.add(jMenuItem2);
@@ -62,6 +69,14 @@ private Nomina_Empleados nuevaVentana2;
             }
         });
         jMenu1.add(jMenuItem1);
+
+        jMenuItem4.setText("MantenimientoEmpleados");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem4);
 
         jMenuBar1.add(jMenu1);
 
@@ -95,6 +110,16 @@ private Nomina_Empleados nuevaVentana2;
      nuevaVentana2=new Nomina_Empleados();
      jDesktopPane1.add (nuevaVentana2);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
+
+    private void jMenu1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu1ActionPerformed
+        // TODO add your handling code here:
+        nuevaVentana3=new MantenimientoEmpleados();
+        jDesktopPane1.add (nuevaVentana3);
+    }//GEN-LAST:event_jMenu1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -140,5 +165,6 @@ private Nomina_Empleados nuevaVentana2;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem4;
     // End of variables declaration//GEN-END:variables
 }
