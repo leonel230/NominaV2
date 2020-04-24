@@ -269,6 +269,11 @@ public class Nomina_Empleados extends javax.swing.JInternalFrame {
         });
 
         jButton2.setText("Modificar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton3.setText("Eliminar");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -509,6 +514,32 @@ int ICod=0;
         }
         
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+         try {
+            String ID = txt_buscar.getText().trim();
+            
+            Connection cn = DriverManager.getConnection("jdbc:mysql://localhost/nominae", "root", "kingcobra123DA");
+            PreparedStatement pst = cn.prepareStatement("update nomina set nombre_empleado = ?, puesto_empleado = ?, sueldo_empleado = ?, bonificacion_empleado = ?, igss_empleado = ?, otros_empleado = ?, sueldoe_empleados = ?, horase_empleados = ?, isr_empleados = ? , descuentos_empleados = ?  where ID = " + ID);
+
+            pst.setString(1, txt_nombreE.getText().trim());
+            pst.setString(2, txt_Puesto.getText().trim());
+            pst.setString(3, txt_Sueldo.getText().trim());
+            pst.setString(4, txt_Bonif.getText().trim());
+            pst.setString(5, txt_Igss.getText().trim());
+            pst.setString(6, txt_oIngre.getText().trim());
+            pst.setString(7, txt_sExtra.getText().trim());
+            pst.setString(8, txt_Hextra.getText().trim());
+            pst.setString(9, txt_Isr.getText().trim());
+            pst.setString(10, txt_oDesc.getText().trim());
+            pst.executeUpdate();
+            
+            //label_status.setText("Modificación exitosa.");
+            
+        } catch (Exception e) {
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
