@@ -2,6 +2,7 @@
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.text.DecimalFormat;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -270,8 +271,18 @@ public class Nomina_Empleados extends javax.swing.JInternalFrame {
         jButton2.setText("Modificar");
 
         jButton3.setText("Eliminar");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jButton4.setText("Buscar");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -439,6 +450,65 @@ int ICod=0;
             
         }
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+   //Codigo que permite borrar registros en la base de datos
+        try {
+             Connection cn = DriverManager.getConnection("jdbc:mysql://localhost/nominae", "root", "kingcobra123DA");
+            PreparedStatement pst = cn.prepareStatement("delete from nomina where ID = ?");
+            
+            pst.setString(1, txt_buscar.getText().trim());
+            pst.executeUpdate();
+            
+            txt_nombreE.setText("");
+            txt_Puesto.setText("");
+            txt_Sueldo.setText("");
+             txt_Bonif.setText("");
+            txt_Igss.setText("");
+            txt_oIngre.setText("");
+             txt_sExtra.setText("");
+            txt_Hextra.setText("");
+            txt_Isr.setText("");
+             txt_oDesc.setText("");
+          
+            
+            //label_status.setText("Registro eliminado.");
+            
+        } catch (Exception e) {
+        }        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+                //Codigo que permite consultar registros en la base de datos
+        try{
+            Connection cn = DriverManager.getConnection("jdbc:mysql://localhost/nominae", "root", "kingcobra123DA");
+            PreparedStatement pst = cn.prepareStatement("select * from nomina where ID = ?");
+            pst.setString(1, txt_buscar.getText().trim());
+            
+            ResultSet rs = pst.executeQuery();
+            
+            if(rs.next()){
+          
+                txt_nombreE.setText(rs.getString("nombre_empleado"));
+                txt_Puesto.setText(rs.getString("puesto_empleado"));
+                txt_Sueldo.setText(rs.getString("sueldo_empleado"));
+                txt_Bonif.setText(rs.getString("bonificacion_empleado"));
+                txt_Igss.setText(rs.getString("igss_empleado"));
+                txt_oIngre.setText(rs.getString("otros_empleado"));
+                txt_sExtra.setText(rs.getString("sueldoe_empleados"));
+                txt_Hextra.setText(rs.getString("horase_empleados"));
+                txt_Isr.setText(rs.getString("isr_empleados"));
+                txt_oDesc.setText(rs.getString("descuentos_empleados"));
+            } else {
+                JOptionPane.showMessageDialog(null, "Empleado no registrado.");
+            }
+            
+        }catch (Exception e){
+            
+        }
+        
+    }//GEN-LAST:event_jButton4ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
